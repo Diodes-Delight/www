@@ -1,0 +1,2 @@
+{{ $url := (index .Page.Site.Params (.Get "data")) }}
+<a style="text-decoration: underline; font-weight: bold; color: white;" href={{$url}}>{{.Get "title"}}</a>
