@@ -9,7 +9,7 @@ weight: 2
 - The Compute Module 4 is in all relevant aspects identical to a Raspberry Pi 4 when it comes to software. What works on a Pi4 work on a CM4.
 - USB is disabled by default in the vanilla Raspberry Pi OS and needs to be enabled in `/boot/config.txt`. You don't need to do this with our modified OS image. Our reference `config.txt` can be found **[here](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**
 
-**NOTE: We are still working on documentation and it will be expanded a lot over the coming days and week, sorry for the delay here. If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
+**NOTE: We are still working on documentation and it will be expanded a lot over the coming days and weeks, sorry for the delay here. If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
 
 ## Getting started the quick way
 
@@ -35,7 +35,7 @@ You can also change the default password and other useful things.
 
 ### For eMMC models
 
-If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up.
+If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up. As well, The USB switch (near the USB-C connector) must be set in the `DEVICE` position.
 
 
 ### Using an existing Raspberry Pi SD Card or vanilla Raspberry Pi OS
