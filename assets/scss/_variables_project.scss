@@ -2,8 +2,8 @@ $primary: #191919;
 $secondary: #ffffff;
 $info: darken($primary, 15%);
 
-$link-color: lighten($primary, 15%);
-$link-hover-color: lighten($link-color, 15%);
+$link-color: blue;
+$link-hover-color: lighten($link-color, 35%);
 
 .td-sidebar-nav {
 	a {
