@@ -13,7 +13,7 @@ So you can access the I2C port in blinka with the `board.SDA` and `board.SCL` (g
 
 Almost if not all Blinka/CircuitPython code examples for Qwiic or Stemma QT devices should just work as is.
 
-Here an example for interfacing with the [Adafruit VCNL4040](https://www.adafruit.com/product/4161) proximity and lux sensor and letting it do key virtual key presses.
+Here an example for interfacing with the [Adafruit VCNL4040](https://www.adafruit.com/product/4161) proximity and lux sensor and letting it do virtual key presses.
 You may need to install the python [keyboard library](https://pypi.org/project/keyboard/) with `pip install keyboard`
 
 ```
