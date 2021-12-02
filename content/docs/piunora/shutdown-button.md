@@ -1,6 +1,6 @@
 ---
 title: "Shutdown Button"
-weight: 4
+weight: 5
 ---
 
 If you are using Piunora with our modified OS then it comes with the shutdown button enabled.

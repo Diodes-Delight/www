@@ -35,7 +35,9 @@ You can also change the default password and other useful things.
 
 ### For eMMC models
 
-If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up. As well, The USB switch (near the USB-C connector) must be set in the `DEVICE` position.
+If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up. As well, the **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
+
+USB hubs sometimes can give you issues when the pi-boot utility tries to send the boot code. If you experience the tool going in a loop forever trying to send something, try a USB port that is directly connected to your computer or a different USB hub.
 
 
 ### Using an existing Raspberry Pi SD Card or vanilla Raspberry Pi OS
@@ -43,7 +45,7 @@ If you are using an eMMC module follow the Raspberry Pi docs **[here](https://ww
 You can of course boot any OS you like!
 The only thing you probably wanna do at very least is copy our Piunora/CM4 specific `config.txt`. You can find the latest version **[here](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
 
-This is enables things like extra SPI ports needed for ADC, enables USB and other things necessary to interface with hardware.
+This enables things like extra SPI ports needed for ADC, enables USB and other things necessary to interface with hardware.
 You can just copy the Piunora section, you don't have to overwrite your whole config.txt if you don't want to. Just make sure you don't disable anything again by accident.
 
 For a comprehensive overview of what we install for Piunora you can check out the repository for the automated image build process.

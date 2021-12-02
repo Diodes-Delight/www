@@ -3,7 +3,7 @@ title: "Getting to Blinky with Blinka (Python)"
 weight: 3
 ---
 
-### This guide assumes that you have followed the Getting Started site and are using our modified Raspberry Pi OS.
+### This guide assumes that you have followed the Getting Started site and are using our modified Raspberry Pi OS. You will have to setup Blinka yourself otherwise via the resources linked below.
 
 Our OS image comes pre-installed with [Adafruit Blinka](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux). A compatibility layer for [CircuitPython](https://circuitpython.org/) for Linux computers.
 You can run almost any CircuitPython code directly on Piunora that way.

@@ -1,6 +1,6 @@
 ---
 title: "RGB LED"
-weight: 6
+weight: 7
 ---
 
 Piunora comes with a **WS2812** (aka Neopixel) LED for you to use in your application.

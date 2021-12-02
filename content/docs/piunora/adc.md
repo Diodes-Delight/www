@@ -1,6 +1,6 @@
 ---
 title: "Analog to Digital Converter"
-weight: 5
+weight: 6
 ---
 
 Piunora has an on-board analog to digital converter (ADC) so you can read analog voltages in f.e. Python (see the Getting to Blinky guide) and other programming languages.
