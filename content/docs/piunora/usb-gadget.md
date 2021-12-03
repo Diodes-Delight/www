@@ -65,3 +65,93 @@ It might take a bit until Windows identified the Network. Once its done you shou
 If not, first connect via serial and check what IP the Pi (run `ifconfig`, and look at `inet` under `usb0`) has given itself and connect to that instead.
 
 ![Windows Network showing Identifying](/docs/piunora/windows-network-intentifying.png)
+
+### macOS
+
+macOS 10.12 (Sierra) and later should have all the drivers you need built in. Simply attatching Piunora via the USB-C port should get it installed.
+
+#### Serial
+
+To connect via serial with an application like `screen`, simply use the name of the tty device that macOS added when you plugged it in.
+
+In this case, it was added with the name `tty.usbmodem1103`:
+
+![macOS ls /dev/tty.*](/docs/piunora/macos-ls-dev.png)
+
+So running the command `screen /dev/tty.usbmodem1103` gets you connected:
+
+![macOS connected to Piunora via screen](/docs/piunora/macos-screen.png)
+
+#### RNDIS
+
+Recent versions of macOS should automatically have a RNDIS driver. However, you'll need to configure the adapter that the USB connection presents.
+
+##### macOS 10.11 (El Capitan) and Earlier
+
+macOS didn't include a RNDIS driver until 10.12. For earlier versions (10.6.8 and later), a third party driver is available called [HoRNDIS](https://joshuawise.com/horndis) (pronounced: _"horrendous"_). This is a software package designed to support Android tethering, but it will likely work for our purposes as well. **N.B.**: This is as of yet untested.
+
+##### Network Configuration
+
+After you've attached Piunora to your Mac and allowed it time to boot up, open the `Network` panel in system preferences.
+
+You can get there by pressing `⌘+Space` and typing `Network`, making sure the system preferences network option is selected, then pressing return.
+
+![macOS spotlight showing network](/docs/piunora/macos-spotlight-network.png)
+
+If there is an entry in the list on the left named `RNDIS/Ethernet Gadget` with an amber orb to its left, you're ready to go.
+
+_Screenshot Here_
+
+If not, you'll need to add the adapter. Click the `+` in the lower left. In the dialog that appears, change the `Interface` to `RNDIS/Ethernet Gadget`, then click `Create`.
+
+_Screenshot Here_
+
+Once it adds, if the orb to it's left turns amber, you should be ready to connect via SSH as `pi@raspberrpi.local`. If not, first connect via serial and check what IP the Pi (run `ifconfig`, and look at `inet` under `usb0`) has given itself and connect to that instead.
+
+##### Internet Connection Sharing
+
+**N.B.**: This is untested, but based on the information from [here](https://learn.adafruit.com/turning-your-raspberry-pi-zero-into-a-usb-gadget/ethernet-gadget#if-you-are-using-a-mac-as-the-host-computer-2570560-24) and [here](https://gist.github.com/superdodd/06b91ba03899e47beb43078b27dc601e).
+
+If you want to share your Mac's internet connection with your Piunora, you'll need to do a little more configuration. First, while connected (via serial or ssh) to your Piunora, you'll want to configure a static IP address for the Pi to use.
+
+From the terminal, as root or via `sudo`, create & open a file named `/etc/network/interfaces.d/ifcfg-usb0` in your editor of choice. (The name `ifcfg-usb0` can be what you like, all files in the directory `/etc/network/interfaces.d/` are sourced.)
+
+Add the following lines to that file:
+
+```
+  allow-hotplug usb0
+  iface usb0 inet static
+      address 192.168.2.2
+      netmask 255.255.255.0
+      gateway 192.168.2.1
+```
+
+Write and close that file.
+
+Next, you'll want to edit `/etc/resolveconf.conf`, and add a line that reads:
+
+```
+name_servers=192.168.2.1
+```
+
+Write and close that file.
+
+Now, back on your Mac, navigate back to the Network preferences panel. Select your `RNDIS/Ethernet Gadget` adapter
+
+Change the `Configure IPv4` drop-down to `Manually`. Assign it the IP address `192.168.2.1`, with the subnet mask `255.255.255.0` and router set to `192.168.2.1`.
+
+_Screenshot Here_
+
+Next, click `Advanced`, On the `DNS` tab, add one or more IP addresses for the DNS server(s) you want to use. You can likely use the IP of your home gateway, or you can use something like: `1.1.1.1`, `1.0.0.1` (provided by Cloudflare), `8.8.8.8`, `8.8.4.4` (provided by Google).
+
+_Screenshot Here_
+
+Save those changes, then navigate to the `Sharing` section of the `System Preferences` app. (Press the `<` and then click the `Sharing` icon.)
+
+Tick the box next to `Internet Sharing`, choose the connection you want to share, and tick the box next to your `RNDIS/Ethernet Gadget` interface.
+
+_Screenshot Here_
+
+Reboot your Pi, and it should be able to access the internet via your Mac!
+
+If it doesn't seem to be working, some suggest adding an additional configuration on the Pi. As root, edit `/etc/modprobe.d/g_ether.conf`, and add the line `options g_ether use_eem`. Reboot the Pi.
