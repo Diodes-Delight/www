@@ -72,13 +72,13 @@ macOS 10.12 (Sierra) and later should have all the drivers you need built in. Si
 
 #### Serial
 
-To connect via serial with an application like `screen`, simply use the name of the tty device that macOS added when you plugged it in.
+To connect via serial with an application like `screen`, simply use the name of the device that macOS added when you plugged it in.
 
-In this case, it was added with the name `tty.usbmodem1103`:
+In this case, it was added with the name `cu.usbmodem1103`:
 
-![macOS ls /dev/tty.*](/docs/piunora/macos-ls-dev.png)
+![macOS ls /dev/cu.*](/docs/piunora/macos-ls-dev.png)
 
-So running the command `screen /dev/tty.usbmodem1103` gets you connected:
+So running the command `screen /dev/cu.usbmodem1103` gets you connected:
 
 ![macOS connected to Piunora via screen](/docs/piunora/macos-screen.png)
 
