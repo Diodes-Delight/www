@@ -114,24 +114,15 @@ Once it adds, if the orb to it's left turns amber, you should be ready to connec
 
 If you want to share your Mac's internet connection with your Piunora, you'll need to do a little more configuration. First, while connected (via serial or ssh) to your Piunora, you'll want to configure a static IP address for the Pi to use.
 
-From the terminal, as root or via `sudo`, create & open a file named `/etc/network/interfaces.d/ifcfg-usb0` in your editor of choice. (The name `ifcfg-usb0` can be what you like, all files in the directory `/etc/network/interfaces.d/` are sourced.)
+From the terminal, open the file named `/etc/dhcpcd.conf` in your editor of choice.
 
-Add the following lines to that file:
-
-```
-  allow-hotplug usb0
-  iface usb0 inet static
-      address 192.168.2.2
-      netmask 255.255.255.0
-      gateway 192.168.2.1
-```
-
-Write and close that file.
-
-Next, you'll want to edit `/etc/resolveconf.conf`, and add a line that reads:
+Add the following lines to the bottom of that file:
 
 ```
-name_servers=192.168.2.1
+interface usb0
+static ip_address=192.168.2.2/24
+static routers=192.168.2.1
+static domain_name_servers=192.168.2.1
 ```
 
 Write and close that file.
