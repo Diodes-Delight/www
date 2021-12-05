@@ -8,7 +8,7 @@ You can find a small slide switch next to the USB-C port. With this switch you c
 Or you can put it into the USB **Device** mode which will switch the USB over to the **USB-C port**.
 In this mode you can use Piunora as a USB device and connect it to your computer.
 
-**You can switch back and forth any time, no need to reboot!**
+**You can switch back and forth between Host and Device mode any time, no need to reboot!**
 
 **Though this also means the USB-C and USB-A port are mutually exclusive! You can not use both at once because the CM4 only comes with a single native USB port.**
 

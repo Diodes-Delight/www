@@ -8,12 +8,14 @@ When the USB Switch is in the `device` position and you have it connected via th
 
 Right now the USB Mass Storage is a bit useless, its mostly there for testing purposes. In the very near future though you will able to place code files onto that USB storage and it will automatically transfer your files to the Linux filesystem for you so you can easily work on code with your favorite editor on your host computer without SFTP.
 
-You can connect to your Piunora easily via serial, just open the tty / COM device with a terminal app like `screen` on Linux or Mac OS or `putty` on Windows. Typical baudrate is `115200` but the Pi should auto-detect the baudrate.
+You can connect to your Piunora easily via serial, just open the tty / COM device with a terminal app like `screen` on Linux or Mac OS and `putty` on Windows. Typical baudrate is `115200` but the Pi should auto-detect the baudrate.
 If you are using a version of Windows before Windows 10 you might need to install generic Serial device drivers. We currently only support Windows 10 and up.
 
-For the RNDIS Ethernet device you should not need to setup drivers for Linux or Mac.
+For the RNDIS Ethernet device you should not need to setup drivers for Linux.
 You should usually be able to connect via ssh to `pi@raspberrpi.local`
 If not, first connect via serial and check what IP the Pi has given itself and connect to that instead.
+
+On MacOS there seem to issues with the RNDIS driver. This is being looked into to support in the future but for now you have to stick to Serial on MacOS.
 
 On Windows you will need to install the Microsoft "USB RNDIS Adapter" driver.
 
