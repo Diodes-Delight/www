@@ -35,7 +35,16 @@ You can also change the default password and other useful things.
 
 ### For eMMC models
 
-If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up. As well, the **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
+If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. This button is connected to both GPIO25 and the nRPI_BOOT signal for USB boot. Physically it is located on the top left behind the HDMI connector.
+
+![USB BOOT button](/docs/piunora/pic/usb-boot-25.jpg)
+
+You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up.
+
+Also the **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
+The Device position is the one closer towards the small Qwiic connector next to it. The default position is Host which is facing away from the Qwiic connector towards the USB cable.
+
+![usb switch set to device](/docs/piunora/pic/usb-switch-device.jpg)
 
 USB hubs sometimes can give you issues when the pi-boot utility tries to send the boot code. If you experience the tool going in a loop forever trying to send something, try a USB port that is directly connected to your computer or a different USB hub.
 

@@ -5,7 +5,7 @@ weight: 4
 
 If you are using Piunora with our modified OS then it comes with the shutdown button enabled.
 
-If you press the button on the back (labeled "26" for GPIO26) for 5 seconds it will shutdown the CM4 safely. Once the green LED stopped blinking it is safe to unplug.
+If you press the button on the back of the board next to the SDCard connector (labeled "26" for GPIO26) for 5 seconds it will shutdown the CM4 safely. Once the green LED stopped blinking it is safe to unplug.
 
 This behavior is done via a systemd service that you can also install it yourself with [this script](https://raw.githubusercontent.com/Diodes-Delight/piunora-raspberrypi-os-image/main/scripts/files/install-pwr-off.sh).
 
