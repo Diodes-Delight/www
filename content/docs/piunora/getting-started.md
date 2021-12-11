@@ -7,9 +7,9 @@ weight: 2
 
 
 - The Compute Module 4 is in all relevant aspects identical to a Raspberry Pi 4 when it comes to software. What works on a Pi4 work on a CM4.
-- USB is disabled by default in the vanilla Raspberry Pi OS and needs to be enabled in `/boot/config.txt`. You don't need to do this with our modified OS image. Our reference `config.txt` can be found **[here](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**
+- USB is disabled by default in the vanilla Raspberry Pi OS and needs to be enabled in `/boot/config.txt`. You don't need to do this with our modified OS image. Otherwise checkout our **[reference `config.txt`](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
 
-**NOTE: We are still working on documentation and it will be expanded a lot over the coming days and weeks, sorry for the delay here. If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
+**NOTE: We are still working on documentation and it will be expanded a lot over the coming days and weeks. If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
 
 ## Getting started the quick way
 
@@ -23,30 +23,57 @@ We prepared a customized version of Raspberry Pi OS that has everything installe
 
 It is based on the latest "Raspberry Pi OS (32 bit) with Desktop". It behaves just the same way and has the same "first boot" experience with all the dialogs to get you setup if you are new to the Pi.
 
-We highly recommend using the **Raspberry Pi Imager to flash you image**. You can download it here
+We highly recommend using the **Raspberry Pi Imager to flash your image**. You can download it here
  - [Download for Windows](https://downloads.raspberrypi.org/imager/imager_latest.exe)
  - [Download for Mac](https://downloads.raspberrypi.org/imager/imager_latest.dmg)
  - [Download for Ubuntu (.deb)](https://downloads.raspberrypi.org/imager/imager_latest_amd64.deb) or `sudo apt install rpi-imager`
 
-Before flashing the image we recommend checking out the **advanced settings tab** which can be opened with the key combination **Ctrl+Shift+X**. This will open a little window where you can **set your WiFi credentials** and **enable SSH**. We highly recommend setting at least these two things up so you can access you CM4 via SSH! We chose to not enable SSH by default for the same reason as Raspberry Pi, SSH enabled with a default password is dangerous.
-You can also change the default password and other useful things.
+If you have a CM4 model with eMMC, please check out the instructions below and come back. Flashing works largely the same but you can not use an SD card at all on eMMC models, the SDcard interface is not present on eMMC models.
+
+Before flashing the image we recommend checking out the **advanced settings tab** which can be opened with the key combination **Ctrl+Shift+X**. This will open a little window where you can **set your WiFi credentials** and **enable SSH + set a new password**. We highly recommend setting at least these two things up so you can access you CM4 via SSH! We chose to not enable SSH by default for the same reason as Raspberry Pi, SSH enabled with a default password is dangerous. Do change the password here (its the most convenient) or at the very latest after your first boot if you are for some reason not to using the Pi Imager tool.
 
 ![Pi Imager](/docs/piunora/pi-imager.png)
 
-### For eMMC models
+### For eMMC models only
 
-If you are using an eMMC module follow the Raspberry Pi docs **[here](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc)**. Holding down the USB boot button while attaching the USB cable will enable USB boot for this purpose. This button is connected to both GPIO25 and the nRPI_BOOT signal for USB boot. Physically it is located on the top left behind the HDMI connector.
+If you are using an eMMC module you can checkout the official Raspberry Pi [docs for flashing CM4 modules with eMMC](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc).
+
+They will the be most up to date but given they are a bit convoluted here is a short run down of how to proceed. Note that any instructions specific to setting USB boot on a CM4IO board in the Raspberry Pi guide do not apply to Piunora, see below for how this works on Piunora.
+
+The eMMC can be mounted as a Mass Storage device to your computer via USB, it will look like you just inserted an SDcard.
+
+In order to make that happen we need the Raspberry Pi usb boot utility, this will tell the CM4 to attach the eMMC as a Mass Storage device to our computer.
+
+You can download the [rpi-boot installer for Windows](https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe)
+This will install a binary called `rpiboot`. You should be able to find it in the start menu search.
+
+On OSX and Linux you need to unfortunately [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
+Follow the instruction in the readme, it is fortunately a short process.
+
+Now that we have the `rpiboot` tool we can put the CM4 into USB boot mode.
+
+The **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
+The Device position is the one closer towards the small Qwiic connector. The default position is Host which is facing away from the Qwiic connector towards the USB cable.
+
+![usb switch set to device](/docs/piunora/pic/usb-switch-device.jpg)
+
+Now run the `rpiboot` binary, it will start to search for attached CM4 devices.
+
+![rpiboot running](/docs/piunora/pic/rpiboot.png)
+
+Holding down the USB boot button while attaching the USB-C cable will enable USB boot. This button is connected to both GPIO25 and the nRPI_BOOT signal for USB boot. Physically it is located on the top left behind the HDMI connector.
 
 ![USB BOOT button](/docs/piunora/pic/usb-boot-25.jpg)
 
 You do not need to keep holding it down after attaching the USB cable, it just needs to be pressed during power up.
 
-Also the **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
-The Device position is the one closer towards the small Qwiic connector next to it. The default position is Host which is facing away from the Qwiic connector towards the USB cable.
+After a few seconds you should see the USB device disconnect and come back as a Mass Storage Device.
+The `rpiboot` utility will automatically close/exit.
 
-![usb switch set to device](/docs/piunora/pic/usb-switch-device.jpg)
+USB hubs sometimes can give you issues when the `rpiboot` utility tries to send the boot code. If you experience the tool going in a loop forever trying to send something, try a USB port that is directly connected to your computer or a different USB hub.
+It may look something like this. Spewing errors of failed control transfers.
 
-USB hubs sometimes can give you issues when the pi-boot utility tries to send the boot code. If you experience the tool going in a loop forever trying to send something, try a USB port that is directly connected to your computer or a different USB hub.
+![rpiboot error](/docs/piunora/pic/rpiboot-error-w-hub.png)
 
 
 ### Using an existing Raspberry Pi SD Card or vanilla Raspberry Pi OS

@@ -1,8 +1,11 @@
-Production build
+Build
 ----------
-`hugo --enableGitInfo`
-or if you wanna make certain sure its production
-`hugo --enableGitInfo -e production`
+`hugo`
+
+or if you wanna make sure its production
+Powershell: `$Env:HUGO_ENV = "production"` or Linux `HUGO_ENV="production`
+
+`hugo`
 
 Credits
 -------
