@@ -38,21 +38,21 @@ Before flashing the image we recommend checking out the **advanced settings tab*
 
 If you are using an eMMC module you can checkout the official Raspberry Pi [docs for flashing CM4 modules with eMMC](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc).
 
-They will the be most up to date but given they are a bit convoluted here is a more concise run down of how to proceed. Note that any instructions specific to setting USB boot on a CM4IO board in the Raspberry Pi guide do not apply to Piunora, see below for how this works on Piunora.
+They will the be most up to date but given they are a bit convoluted here is a more concise run down of how to proceed. Note that any instructions specific to setting USB boot on a CM4IO board in the official Raspberry Pi guide do not apply to Piunora, see below for how this works on Piunora.
 
 The eMMC can be mounted as a Mass Storage device to your computer via USB, it will look like you just inserted an SDcard.
 
 In order to make that happen we need the Raspberry Pi usb boot utility, this will tell the CM4 to attach the eMMC as a Mass Storage device to our computer.
 
-You can download the [rpi-boot installer for Windows](https://github.com/raspberrypi/usbboot/raw/master/win32/rpiboot_setup.exe)
-This will install a binary called `rpiboot`. You should be able to find it in the start menu search.
+As Raspberry Pi is not releasing binaries for this usb boot utility for Mac and Linux we created this CI pipeline to build the latest version for you.
+It also offers the latest installer for Windows which is ahead of the last released installed by Raspberry Pi. We highly recommend going with that version as it includes some important fixes for USB hubs.
 
-On OSX and Linux you need to unfortunately [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
-If you are not comfortable with that or have issues building the tool.
-We have provided an automated build of this utility for Mac and Linux.
-You can find the [latest Mac and Linux binary on the release page](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
+[Latest downloads for rpiboot](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
+
+If you are on Linux and have trouble with the binary you can [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
 
 Now that we have the `rpiboot` tool we can put the CM4 into USB boot mode.
+If you can see it on Windows use the start menu search to look for `rpiboot`
 
 The **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
 The Device position is the one closer towards the small Qwiic connector. The default position is Host which is facing away from the Qwiic connector towards the USB cable.
