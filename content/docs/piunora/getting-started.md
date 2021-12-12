@@ -38,7 +38,7 @@ Before flashing the image we recommend checking out the **advanced settings tab*
 
 If you are using an eMMC module you can checkout the official Raspberry Pi [docs for flashing CM4 modules with eMMC](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc).
 
-They will the be most up to date but given they are a bit convoluted here is a short run down of how to proceed. Note that any instructions specific to setting USB boot on a CM4IO board in the Raspberry Pi guide do not apply to Piunora, see below for how this works on Piunora.
+They will the be most up to date but given they are a bit convoluted here is a more concise run down of how to proceed. Note that any instructions specific to setting USB boot on a CM4IO board in the Raspberry Pi guide do not apply to Piunora, see below for how this works on Piunora.
 
 The eMMC can be mounted as a Mass Storage device to your computer via USB, it will look like you just inserted an SDcard.
 
@@ -48,7 +48,9 @@ You can download the [rpi-boot installer for Windows](https://github.com/raspber
 This will install a binary called `rpiboot`. You should be able to find it in the start menu search.
 
 On OSX and Linux you need to unfortunately [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
-Follow the instruction in the readme, it is fortunately a short process.
+If you are not comfortable with that or have issues building the tool.
+We have provided an automated build of this utility for Mac and Linux.
+You can find the [latest Mac and Linux binary on the release page](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
 
 Now that we have the `rpiboot` tool we can put the CM4 into USB boot mode.
 
