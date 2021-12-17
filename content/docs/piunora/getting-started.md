@@ -49,7 +49,10 @@ It also offers the latest installer for Windows which is ahead of the last relea
 
 [Latest downloads for rpiboot](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
 
-If you are on Linux and have trouble with the binary you can [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
+On MacOS you will still have to install libusb via the brew package manager `brew install libusb`
+We will work on a more beginner friendly solution for the future.
+
+If you are on Linux and have trouble with the binary built with Ubuntu 20.04 you can [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
 
 Now that we have the `rpiboot` tool we can put the CM4 into USB boot mode.
 If you can see it on Windows use the start menu search to look for `rpiboot`

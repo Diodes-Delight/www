@@ -10,5 +10,3 @@ As a carrier board for the Raspberry Pi Compute Module 4 (CM4), Piunora is essen
 It may be small, but Piunora is packed with powerful peripherals!
 
 Here you will learn all about its details. Click the link below to get started quickly!
-
-</div>
