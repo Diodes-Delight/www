@@ -44,18 +44,29 @@ The eMMC can be mounted as a Mass Storage device to your computer via USB, it wi
 
 In order to make that happen we need the Raspberry Pi usb boot utility, this will tell the CM4 to attach the eMMC as a Mass Storage device to our computer.
 
+__Getting the `rpiboot` binary__
+
 As Raspberry Pi is not releasing binaries for this usb boot utility for Mac and Linux we created this CI pipeline to build the latest version for you.
 It also offers the latest installer for Windows which is ahead of the last released installed by Raspberry Pi. We highly recommend going with that version as it includes some important fixes for USB hubs.
+On MacOS and Linux this is a bit tricky. You may want to compile them from source instead but if that gives you issue the binaries might help.
 
-[Latest downloads for rpiboot](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
+[Compile from source](https://github.com/raspberrypi/usbboot)
+
+[Latest downloads for binaries](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
 
 On MacOS you will still have to install libusb via the brew package manager `brew install libusb`
-We will work on a more beginner friendly solution for the future.
+It is not compiled without an Apple Developer certificate. So in order to run it you may need to remove the quarantine bits that MacOS sets on unknown binaries: `xattr -d com.apple.quarantine ./rpiboot`
 
-If you are on Linux and have trouble with the binary built with Ubuntu 20.04 you can [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
+If you do not trust our binaries you can still [compile from source](https://github.com/raspberrypi/usbboot), it is not very complicated if you used `cmake` before.
+We will try to work on a more beginner friendly solution for the future.
+
+If you are on Linux and have trouble with the binary built with Ubuntu 20.04 you can also [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
+libusb should be installed either way. On Ubuntu you can install it with `sudo apt install libusb-1.0-0-dev`
+
+__Connecting Piunora to your PC and mount the eMMC__
 
 Now that we have the `rpiboot` tool we can put the CM4 into USB boot mode.
-If you can see it on Windows use the start menu search to look for `rpiboot`
+If you can't see it on Windows use the start menu search to look for `rpiboot`
 
 The **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
 The Device position is the one closer towards the small Qwiic connector. The default position is Host which is facing away from the Qwiic connector towards the USB cable.

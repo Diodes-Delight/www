@@ -14,6 +14,14 @@ layout: docs
 
 
 <form id="contact-form" method="post" action="https://formspree.io/f/xyylplyk" role="form" style="margin-top:10%">
+    <div class="col-md-8 mx-auto">
+    Contact details:
+
+- Company name: Diodes Delight
+- E-mail: contact@diodes-delight.com
+
+Diodes Delight is not doing business with end-consumers. Please contact the distributor you purchased your hardware from if you have questions about returns or warranty.
+    </div>
     <div class="controls">
         <div class="row">
             <div class="col-md-8 mx-auto">
