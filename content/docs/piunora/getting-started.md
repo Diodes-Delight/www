@@ -7,9 +7,10 @@ weight: 2
 
 
 - The Compute Module 4 is in all relevant aspects identical to a Raspberry Pi 4 when it comes to software. What works on a Pi4 work on a CM4.
-- USB is disabled by default in the vanilla Raspberry Pi OS and needs to be enabled in `/boot/config.txt`. You don't need to do this with our modified OS image. Otherwise checkout our **[reference `config.txt`](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
+- USB is disabled by default in the vanilla Raspberry Pi OS and needs to be enabled in `/boot/config.txt`.
+- You don't need to set anything up with our modified OS image. Otherwise checkout our **[reference config.txt](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
 
-**NOTE: We are still working on documentation and it will be expanded a lot over the coming days and weeks. If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
+**If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
 
 ## Getting started the quick way
 
@@ -20,6 +21,8 @@ We prepared a customized version of Raspberry Pi OS that has everything installe
 **Default user: `pi`**
 
 **Default password: `raspberry`**
+
+Please change the password immediately, unfortunately this is how Raspberry Pi OS is currently setup. You can do this during flashing as explained below or the first boot experience will guide you through it if you connect via a monitor.
 
 It is based on the latest "Raspberry Pi OS (32 bit) with Desktop". It behaves just the same way and has the same "first boot" experience with all the dialogs to get you setup if you are new to the Pi.
 
@@ -48,7 +51,7 @@ __Getting the `rpiboot` binary__
 
 As Raspberry Pi is not releasing binaries for this usb boot utility for Mac and Linux we created this CI pipeline to build the latest version for you.
 It also offers the latest installer for Windows which is ahead of the last released installed by Raspberry Pi. We highly recommend going with that version as it includes some important fixes for USB hubs.
-On MacOS and Linux this is a bit tricky. You may want to compile them from source instead but if that gives you issue the binaries might help.
+On MacOS compiling turned out to be a bit tricky for some users. You may want to still try to compile from source but if that gives you issue the binaries might help.
 
 [Compile from source](https://github.com/raspberrypi/usbboot)
 
@@ -60,8 +63,7 @@ It is not compiled without an Apple Developer certificate. So in order to run it
 If you do not trust our binaries you can still [compile from source](https://github.com/raspberrypi/usbboot), it is not very complicated if you used `cmake` before.
 We will try to work on a more beginner friendly solution for the future.
 
-If you are on Linux and have trouble with the binary built with Ubuntu 20.04 you can also [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
-libusb should be installed either way. On Ubuntu you can install it with `sudo apt install libusb-1.0-0-dev`
+If you are on Linux the best way is to [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
 
 __Connecting Piunora to your PC and mount the eMMC__
 
