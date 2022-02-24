@@ -25,9 +25,9 @@ weight: 1
 <!-- The Modal -->
 <div id="distributor-list" class="modal">
   <!-- Modal content -->
-  <div class="modal-content" style="margin-top: 15%;  width:70%; margin: 0 auto; text-align: center;">
+  <div class="modal-content" style="margin-top: 45%;  width:auto; margin: 20% auto; text-align: center;">
     <span class="close">&times;</span>
-    <h3 style="margin-bottom: 15%;">List of distributors</h3>
+    <h3 style="margin-bottom: 3%;">List of distributors</h3>
     <a href="https://www.crowdsupply.com/diodes-delight/piunora">CrowdSupply (US/International)</a>
     <a href="https://www.makerfabs.com/piunora-raspberry-pi-cm4-carrier-board.html">Makerfabs (CN/International)</a>
   </div>
