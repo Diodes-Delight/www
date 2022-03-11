@@ -30,6 +30,7 @@ weight: 1
     <h3 style="margin-bottom: 3%;">List of distributors</h3>
     <a href="https://www.crowdsupply.com/diodes-delight/piunora">CrowdSupply (US/International)</a>
     <a href="https://www.makerfabs.com/piunora-raspberry-pi-cm4-carrier-board.html">Makerfabs (CN/International)</a>
+    <a href="https://www.seeedstudio.com/Piunora-Raspberry-Pi-CM4-carrier-board-p-5296.html">Seeedstudio (CN/International)</a>
   </div>
 
 </div>
