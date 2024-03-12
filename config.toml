@@ -139,6 +139,12 @@ enable = false
 	desc = "All the latest news and products!"
 
 [[params.links.user]]
+	name ="Mastodon"
+	url = "https://hachyderm.io/@diodesdelight"
+	icon = "fab fa-mastodon"
+	desc = "All the latest news and products!"
+
+[[params.links.user]]
 	name = "Discord"
 	url = "https://discord.gg/FVARhRaJDN"
 	icon = "fab fa-discord"

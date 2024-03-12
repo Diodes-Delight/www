@@ -5,12 +5,12 @@ weight: 1
 
 
 
-<div class="container ">
-<h1 style="width: 100%; margin-top: 5%; text-align: center;">Piunora</h1>
+<div class="container">
+<h1 style="width: 100%; margin-top: 5%; text-align: center; font-size: 6.5vw">Piunora</h1>
 
 <!-- [![Piunora](/products/piunora/piunora-cover-small.jpg)](/products/piunora/piunora-cover.jpg) -->
 
-<p align="center" style="margin-top: 5%; width:50%; margin: 0 auto;">
+<p align="center" style="margin-top: 5%; width:30vw; margin: 0 auto;">
   <img src="/products/piunora/piunora.jpg" />
 </p>
 

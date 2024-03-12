@@ -7,21 +7,15 @@ layout: docs
 ---
 
 {{< blocks/lead >}}
-<h2>Get in touch</h2>
+<h2>Get in touch with us!</h2>
 <h3>Looking for technical support? Then please visit our {{% url data=discord title=Discord %}} first.</h3>
-<h3>For all other inquiries please use the form below.</h3>
+<h3>For project inquiries please use the form below.</h3>
+<br>
+<h5>Please note that Diodes Delight is not selling products directly to end-consumers. If you have questions about returns or warranty then please contact the distributor you purchased your hardware from.</h5>
 {{< /blocks/lead >}}
 
 
 <form id="contact-form" method="post" action="https://formspree.io/f/xyylplyk" role="form" style="margin-top:10%">
-    <div class="col-md-8 mx-auto">
-    Contact details:
-
-- Company name: Diodes Delight
-- E-mail: contact@diodes-delight.com
-
-Diodes Delight is not doing business with end-consumers. Please contact the distributor you purchased your hardware from if you have questions about returns or warranty.
-    </div>
     <div class="controls">
         <div class="row">
             <div class="col-md-8 mx-auto">
@@ -43,6 +37,7 @@ Diodes Delight is not doing business with end-consumers. Please contact the dist
                     <textarea id="form_message" name="message" class="form-control" placeholder="Message" rows="4" required="required"></textarea>
                 </div>
             </div>
+            <div class="g-recaptcha" data-sitekey="6LeC8xkkAAAAAB27zJurqyz6_mXaJ7CQe54h5N_C"></div>
             <div class="col-md-8 mx-auto">
                 <input type="submit" class="btn btn-success btn-send" value="Submit">
             </div>
