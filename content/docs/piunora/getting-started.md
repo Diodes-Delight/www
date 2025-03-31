@@ -5,77 +5,63 @@ weight: 2
 
 ## Before we dive in, the most important bits to remember:
 
-
-- The Compute Module 4 is in all relevant aspects identical to a Raspberry Pi 4 when it comes to software. What works on a Pi4 work on a CM4.
-- USB is disabled by default in the vanilla Raspberry Pi OS and needs to be enabled in `/boot/config.txt`.
-- You don't need to set anything up with our modified OS image. Otherwise checkout our **[reference config.txt](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
+- The Compute Module 4/5 is in all relevant aspects identical to a Raspberry Pi 4/5 when it comes to software. What works on a Pi4/5 work on a CM4/5.
+- Things like the camera connector work identical to a big Pi. If a camera does not work on Piunora but does work on a big Pi then it is likely a missing device tree overlay.
+- These days the stock OS image has good defaults, checkout our config.txt for setting up SPI and other relevant ports **[reference config.txt](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
+- We strongly recommend using a model with WiFi. Because the CM4 only had a single USB port it gets tricky to get connected if you have to use a USB Ethernet or WiFi dongle.
 
 **If you have any questions please don't hesitate to reach out to us on [Discord!](https://www.diodes-delight.com/community/)**
 
-## Getting started the quick way
+## Getting started
 
-We prepared a customized version of Raspberry Pi OS that has everything installed and configured for Piunora and electronics prototyping.
+Download the latest Raspberry Pi OS image. Things work out of the box these days of Compute Modules.
 
-**[Download latest Piunora Raspberry Pi OS Desktop image](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/releases)**
-
-**Default user: `pi`**
-
-**Default password: `raspberry`**
-
-Please change the password immediately, unfortunately this is how Raspberry Pi OS is currently setup. You can do this during flashing as explained below or the first boot experience will guide you through it if you connect via a monitor.
-
-It is based on the latest "Raspberry Pi OS (32 bit) with Desktop". It behaves just the same way and has the same "first boot" experience with all the dialogs to get you setup if you are new to the Pi.
-
-We highly recommend using the **Raspberry Pi Imager to flash your image**. You can download it here
+Use the Raspberry Pi Imager to flash and download the OS image. You can download it here
  - [Download for Windows](https://downloads.raspberrypi.org/imager/imager_latest.exe)
  - [Download for Mac](https://downloads.raspberrypi.org/imager/imager_latest.dmg)
- - [Download for Ubuntu (.deb)](https://downloads.raspberrypi.org/imager/imager_latest_amd64.deb) or `sudo apt install rpi-imager`
+ - [Download for Ubuntu (.deb)](https://downloads.raspberrypi.org/imager/imager_latest_amd64.deb) or `sudo apt install rpi-imager` (possibly a bit outdated)
 
-If you have a CM4 model with eMMC, please check out the instructions below and come back. Flashing works largely the same but you can not use an SD card at all on eMMC models, the SDcard interface is not present on eMMC models.
+Before flashing the image we recommend checking out the **advanced settings tab** which can be opened with the key combination **Ctrl+Shift+X**. This will open a little window where you can **set your WiFi credentials** and **enable SSH + set a new password**.
 
-Before flashing the image we recommend checking out the **advanced settings tab** which can be opened with the key combination **Ctrl+Shift+X**. This will open a little window where you can **set your WiFi credentials** and **enable SSH + set a new password**. We highly recommend setting at least these two things up so you can access you CM4 via SSH! We chose to not enable SSH by default for the same reason as Raspberry Pi, SSH enabled with a default password is dangerous. Do change the password here (its the most convenient) or at the very latest after your first boot if you are for some reason not to using the Pi Imager tool.
+If you have a CM4 model with **eMMC**, please check out the instructions below. Flashing works largely the same but you can not use an SD card at all on eMMC models, **the SDcard interface is not present on eMMC models.**
 
-![Pi Imager](/docs/piunora/pi-imager.png)
+Here are some relevant [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) settings you may want to apply after flashing.
+
+```
+#Already there in latest OS versions but just to be sure, this enables USB.
+dtoverlay=dwc2
+
+#Setup SPI5 for using the MCP3008 ADC from Python.
+dtoverlay=spi5-1cs,cs0_pin=24
+
+#Enable UART on Pin 4 and 5
+dtoverlay=uart3
+
+#Enable default I2C1 for QWIIC/STEMMA QT
+dtparam=i2c_arm=on
+
+#Enable default SPI0
+dtparam=spi=on
+
+#Disable Bluetooth
+dtoverlay=disable-bt
+```
+
+(In the past we offered a customized OS image as many things were not setup right for the Compute Module. This has changed and this image is **deprecated** but you can still [download it here](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/releases))
+
 
 ### For eMMC models only
 
-If you are using an eMMC module you can checkout the official Raspberry Pi [docs for flashing CM4 modules with eMMC](https://www.raspberrypi.com/documentation/computers/compute-module.html#steps-to-flash-the-emmc).
+If you are using an eMMC module you can checkout the official Raspberry Pi [docs for flashing CM4 modules with eMMC](https://www.raspberrypi.com/documentation/computers/compute-module.html#flash-compute-module-emmc).
 
-They will the be most up to date but given they are a bit convoluted here is a more concise run down of how to proceed. Note that any instructions specific to setting USB boot on a CM4IO board in the official Raspberry Pi guide do not apply to Piunora, see below for how this works on Piunora.
-
-The eMMC can be mounted as a Mass Storage device to your computer via USB, it will look like you just inserted an SDcard.
-
-In order to make that happen we need the Raspberry Pi usb boot utility, this will tell the CM4 to attach the eMMC as a Mass Storage device to our computer.
-
-__Getting the `rpiboot` binary__
-
-As Raspberry Pi is not releasing binaries for this usb boot utility for Mac and Linux we created this CI pipeline to build the latest version for you.
-It also offers the latest installer for Windows which is ahead of the last released installed by Raspberry Pi. We highly recommend going with that version as it includes some important fixes for USB hubs.
-On MacOS compiling turned out to be a bit tricky for some users. You may want to still try to compile from source but if that gives you issue the binaries might help.
-
-[Compile from source](https://github.com/raspberrypi/usbboot)
-
-[Latest downloads for binaries](https://github.com/Diodes-Delight/rpiboot-binaries/releases).
-
-On MacOS you will still have to install libusb via the brew package manager `brew install libusb`
-It is not compiled without an Apple Developer certificate. So in order to run it you may need to remove the quarantine bits that MacOS sets on unknown binaries: `xattr -d com.apple.quarantine ./rpiboot`
-
-If you do not trust our binaries you can still [compile from source](https://github.com/raspberrypi/usbboot), it is not very complicated if you used `cmake` before.
-We will try to work on a more beginner friendly solution for the future.
-
-If you are on Linux the best way is to [build `rpiboot` yourself](https://github.com/raspberrypi/usbboot).
-
-__Connecting Piunora to your PC and mount the eMMC__
-
-Now that we have the `rpiboot` tool we can put the CM4 into USB boot mode.
-If you can't see it on Windows use the start menu search to look for `rpiboot`
+Note that any instructions specific to setting USB boot on a CM4IO/CM5IO board in the official Raspberry Pi guide do not apply to Piunora, instead follow the sequence below to enter USB boot mode. Otherwise you can fully follow the Raspberry Pi guide.
 
 The **USB switch** (near the USB-C connector) must be set in the **DEVICE** position.
-The Device position is the one closer towards the small Qwiic connector. The default position is Host which is facing away from the Qwiic connector towards the USB cable.
+The Device position is the one closer towards the small Qwiic connector. The default position is Host which is facing away from the Qwiic connector towards the USB cable (the Host setting switches the USB over to the USB-A port)
 
 ![usb switch set to device](/docs/piunora/pic/usb-switch-device.jpg)
 
-Now run the `rpiboot` binary, it will start to search for attached CM4 devices.
+Now run the `rpiboot` binary, it will start to search for attached CM devices.
 
 ![rpiboot running](/docs/piunora/pic/rpiboot.png)
 
@@ -93,17 +79,4 @@ It may look something like this. Spewing errors of failed control transfers.
 
 ![rpiboot error](/docs/piunora/pic/rpiboot-error-w-hub.png)
 
-
-### Using an existing Raspberry Pi SD Card or vanilla Raspberry Pi OS
-
-You can of course boot any OS you like!
-The only thing you probably wanna do at very least is copy our Piunora/CM4 specific `config.txt`. You can find the latest version **[here](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/files/config.txt)**.
-
-This enables things like extra SPI ports needed for ADC, enables USB and other things necessary to interface with hardware.
-You can just copy the Piunora section, you don't have to overwrite your whole config.txt if you don't want to. Just make sure you don't disable anything again by accident.
-
-For a comprehensive overview of what we install for Piunora you can check out the repository for the automated image build process.
-
-https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/tree/main/scripts
-
-It contains all the shell scripts for all the features we add. You can run them manually on your installation but no guarantee it will work fine, it is only tested against the latest version of Raspberry Pi OS (Debian based).
+Thats it, you can check out the [FAQ](/docs/faq) for some common questions next.

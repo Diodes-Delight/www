@@ -3,7 +3,9 @@ title: "USB Gadget"
 weight: 3
 ---
 
-The Piunora OS distribution comes with the USB gadget mode pre-configured.
+The legacy Piunora OS distribution comes with the USB gadget mode pre-configured.
+You can follow the [setup script](https://github.com/Diodes-Delight/piunora-raspberrypi-os-image/blob/main/scripts/09-setup-usb-gadget.sh) to set it up on a vanilla Raspberry Pi OS install.
+
 When the USB Switch is in the `device` position and you have it connected via the USB-C connector to a computer or laptop you should see a Piunora "USB Stick" or so called Mass Storage Device pop up during boot up. There will also be a USB Serial device and a "USB RNDIS" device, the latter is essentially USB Ethernet.
 
 Right now the USB Mass Storage is a bit useless, its mostly there for testing purposes. In the very near future though you will able to place code files onto that USB storage and it will automatically transfer your files to the Linux filesystem for you so you can easily work on code with your favorite editor on your host computer without SFTP.
